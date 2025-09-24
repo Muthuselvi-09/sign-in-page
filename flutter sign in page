@@ -1,0 +1,145 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp()); // Root widget
+}
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: MyHomePage(),
+    );
+  }
+}
+
+// Home Page - StatefulWidget
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+// State Class - State<MyHomePage>
+class _MyHomePageState extends State<MyHomePage> {
+ TextEditingController tecName =TextEditingController();
+ TextEditingController tecAge =TextEditingController();
+ TextEditingController tecPhone =TextEditingController();
+ TextEditingController tecMail =TextEditingController();
+ TextEditingController tecAddress =TextEditingController();
+ TextEditingController tecPassword =TextEditingController();
+
+ 
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("My Home Page")),
+      body:SingleChildScrollView(
+        child: Column(
+          children: [
+            TextField(
+            
+              controller: tecName,
+              decoration: InputDecoration(
+                labelText: 'Name',
+                icon: Icon(Icons.person),
+               
+                helperText: 'Enter your full name',
+                helperStyle: TextStyle(
+                  color: Colors.blue,
+                ),
+                  
+                
+              ),
+            ),
+             TextField(
+               keyboardType: TextInputType.number,
+              controller: tecAge,
+              decoration: InputDecoration(
+                labelText: 'Age',
+                icon: Icon(Icons.calendar_month),
+               
+                helperText: 'Enter your Age',
+                helperStyle: TextStyle(
+                  color: Colors.blue,
+                ),
+                  
+                
+              ),
+            ),
+             TextField(
+               keyboardType: TextInputType.phone,
+              controller: tecPhone,
+              decoration: InputDecoration(
+                labelText: 'phone no',
+                icon: Icon(Icons.phone),
+                
+                helperText: 'Enter your Phone no',
+                helperStyle: TextStyle(
+                  color: Colors.blue,
+                ),
+                  
+                
+              ),
+            ),
+             TextField(
+               keyboardType: TextInputType.emailAddress,
+              controller: tecMail,
+              decoration: InputDecoration(
+                labelText: 'Email id',
+                icon: Icon(Icons.mail),
+               
+                helperText: 'Enter your Mail id',
+                helperStyle: TextStyle(
+                  color: Colors.blue,
+                ),
+                  
+                
+              ),
+            ),
+             TextField(
+              maxLines: 4,
+              keyboardType: TextInputType.multiline,
+              controller: tecAddress,
+              decoration: InputDecoration(
+                labelText: 'Address',
+                icon: Icon(Icons.location_city),
+                
+                helperText: 'Enter your Address',
+                helperStyle: TextStyle(
+                  color: Colors.blue,
+                ),
+                  
+                
+              ),
+            ),
+            TextField(
+              obscureText: true,
+              
+              controller: tecPassword,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                icon: Icon(Icons.password),
+                
+                helperText: 'Enter your Strong password',
+                helperStyle: TextStyle(
+                  color: Colors.blue,
+                ),
+                  
+                
+              ),
+            ),
+          ],
+          
+        ),
+      ),
+      );
+    
+  }
+}
+
+
+
