@@ -21,7 +21,7 @@ class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
-
+enum Gender {male, female, trans}
 // State Class - State<MyHomePage>
 class _MyHomePageState extends State<MyHomePage> {
  TextEditingController tecName =TextEditingController();
@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
  TextEditingController tecMail =TextEditingController();
  TextEditingController tecAddress =TextEditingController();
  TextEditingController tecPassword =TextEditingController();
-
+ Gender selectedGender = Gender.female;
  
 
   @override
@@ -54,7 +54,52 @@ class _MyHomePageState extends State<MyHomePage> {
                   
                 
               ),
-            ),
+            ),Container(
+              padding: EdgeInsets.all(8.0),
+              alignment: Alignment.centerLeft,
+
+               child: Text('Choose Genter',
+                 style: TextStyle(
+                  fontSize: 16,
+                  
+                 ),
+                 ),
+             ),
+             ListTile(
+             leading: Radio<Gender>(value:Gender.female,
+             groupValue: selectedGender,
+             onChanged: (Gender? value){
+               setState(() {
+                 selectedGender = value!;
+               });
+             },
+             ),
+              title: Text('Female'),
+             ),
+             ListTile(
+               leading: Radio<Gender>(value: Gender.male,
+               groupValue: selectedGender,
+               onChanged: (Gender? value){
+                 setState(() {
+                   selectedGender = value!;
+                 });
+               },
+               ),
+              title: Text('Male'),
+             ),
+             ListTile(
+               leading: Radio<Gender>(value: Gender.trans,
+               groupValue: selectedGender,
+               onChanged: (Gender? value){
+                 setState(() {
+                   selectedGender = value!;
+                 });
+               },
+               ),
+              title: Text('Transgender'),
+             ),
+          
+
              TextField(
                keyboardType: TextInputType.number,
               controller: tecAge,
