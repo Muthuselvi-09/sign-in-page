@@ -1,0 +1,61 @@
+//Radio widget//
+body: SingleChildScrollView(
+            child: Column(
+              children: [
+                TextField(
+                  controller: tecName,
+                  decoration: const InputDecoration(
+                      labelText: 'Name',
+                      icon: Icon(Icons.person),
+                      hintText: 'Enter Your Full Name',
+                      helperText: 'Enter Your Full Name',
+                      helperStyle: TextStyle(
+                          color: Colors.lightBlue
+                      )
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.centerLeft,
+                  child: Text('Choose Gender',
+                  style: TextStyle(
+                    fontSize: 16
+                  ),),
+                ),
+                ListTile(
+                  leading: Radio<Gender>(
+                      value: Gender.Female,
+                      groupValue: selectedGender,
+                      onChanged: (Gender? pickedGender){
+                        // Do Our Action
+                        setState(() {
+                          selectedGender = pickedGender!;
+                        });
+                      }),
+                  title: Text('Female'),
+                ),
+                ListTile(
+                  leading: Radio<Gender>(
+                      value: Gender.Male,
+                      groupValue: selectedGender,
+                      onChanged: (Gender? pickedGender){
+                        // Do Our Action
+                        setState(() {
+                          selectedGender = pickedGender!;
+                        });
+                      }),
+                  title: Text('Male'),
+                ),
+                ListTile(
+                  leading: Radio<Gender>(
+                      value: Gender.Transgender,
+                      groupValue: selectedGender,
+                      onChanged: (Gender? pickedGender){
+                        // Do Our Action
+                        setState(() {
+                          selectedGender = pickedGender!;
+                        });
+                      }),
+                  title: Text('Transgender'),
+                ),
+
