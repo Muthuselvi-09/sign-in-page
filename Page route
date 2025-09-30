@@ -1,0 +1,139 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp()); // Root widget
+}
+class MyApp extends StatelessWidget {
+  
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MyHomePage(),
+    );
+  }
+}
+
+// Home Page - StatefulWidget
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+
+// State Class - State<MyHomePage>
+class _MyHomePageState extends State<MyHomePage> {
+
+
+
+
+  @override
+  Widget build(BuildContext context) {
+  
+    return Scaffold(
+      
+      appBar: AppBar(title: const Text("My Home Page")
+      ),
+
+      body:Container(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+         ElevatedButton(
+          onPressed:(){
+            Navigator.push(context, 
+            MaterialPageRoute(builder: (context){
+             return PageOne(); 
+            }
+            ));
+       
+          },
+          
+          child: Text('Page01',
+          style: TextStyle(
+            fontSize: 20
+          ),
+          )),
+          ElevatedButton(
+          onPressed:(){
+        Navigator.push(context, 
+        MaterialPageRoute(builder: (context){
+          return PageTwo();
+        }
+        ));
+
+          }, 
+          child: Text('Page02',
+          style: TextStyle(
+            fontSize: 20
+          ),
+          )),
+            
+          ],
+        ),
+      ),
+    );
+  }
+}
+class PageOne extends StatelessWidget{
+  @override
+  Widget build(BuildContext) {
+
+    return Scaffold(
+      appBar: AppBar(title: const Text("Page01")
+      ),
+body: Center(
+  child: Text('Static Content',
+  style: TextStyle(fontSize: 30),
+  ),
+),
+floatingActionButton: FloatingActionButton(
+  onPressed:(){
+
+  },
+   child:Icon(Icons.refresh)),
+ 
+    );
+  }
+
+}
+class PageTwo extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState()
+   {
+    return _PageTwo();
+   }
+
+}
+class _PageTwo extends State<PageTwo>{
+  String PageContent = 'Static Content';
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Page02")
+      ),
+      body: Container(
+        alignment: Alignment.center,
+       
+          child: Text(PageContent,
+          style: TextStyle(fontSize: 30),
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed:(){
+            setState(() {
+              PageContent = 'Dynamic Content';
+            });
+          },
+          child: Icon(Icons.refresh),),
+          
+          );
+      
+  }
+
+}
