@@ -1,0 +1,20 @@
+void main(){
+
+  function1();
+  function2();
+  function3();
+
+}
+
+void function1(){
+  print('Function 1');
+}
+
+void function2() async{
+  await Future.delayed(Duration(seconds: 20));
+  print('Function 2');
+}
+
+void function3(){
+  print('Function 3');
+}
