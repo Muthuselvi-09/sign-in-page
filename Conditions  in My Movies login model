@@ -1,0 +1,223 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Application Title',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: "Home Page Title"),
+    );
+  }
+}
+
+enum MyStates { Tamilnadu, Kerala, Karnataka, Telungana }
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  MyStates selectedState = MyStates.Tamilnadu;
+  bool StatusTerms = false;
+  String userName = '';
+  String statusMessage = '';
+  String statusAgreement = '', statusMovies = '', statusState = '';
+
+  TextEditingController tecAge = TextEditingController();
+  TextEditingController tecName = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('My Application'),
+          backgroundColor: Colors.blue,
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  child: const Text(
+                    'My Movies',
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                // Username Field
+                TextField(
+                  controller: tecName,
+                  decoration: const InputDecoration(
+                    labelText: 'User Name',
+                    helperText: 'Enter your Name',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 15),
+
+                // Age Field
+                TextField(
+                  controller: tecAge,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'User Age',
+                    helperText: 'Enter your Age',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                // Dropdown for State
+                Container(
+                  margin: const EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: const Text(
+                    'Choose Your State',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+                DropdownMenu<MyStates>(
+                  width: double.infinity,
+                  initialSelection: selectedState,
+                  onSelected: (MyStates? pickedState) {
+                    setState(() {
+                      selectedState = pickedState!;
+                    });
+                  },
+                  dropdownMenuEntries: const [
+                    DropdownMenuEntry(
+                        value: MyStates.Tamilnadu,
+                        label: 'Tamilnadu'),
+                    DropdownMenuEntry(
+                        value: MyStates.Kerala, label: 'Kerala'),
+                    DropdownMenuEntry(
+                        value: MyStates.Karnataka,
+                        label: 'Karnataka'),
+                    DropdownMenuEntry(
+                        value: MyStates.Telungana,
+                        label: 'Telungana'),
+                  ],
+                ),
+
+                const SizedBox(height: 10),
+
+                // Terms Checkbox
+                ListTile(
+                  leading: Checkbox(
+                    value: StatusTerms,
+                    onChanged: (bool? pickedStatus) {
+                      setState(() {
+                        StatusTerms = pickedStatus!;
+                      });
+                    },
+                  ),
+                  title: const Text(
+                    'Agree for terms and conditions',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 10),
+
+                // Signup Button
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      // Name validation
+                      userName = tecName.text.trim();
+                      if (userName.isEmpty) {
+                        statusMessage = 'Please enter your name';
+                      } else if (StatusTerms == false) {
+                        statusMessage =
+                            'Please agree to the terms and conditions';
+                      } else {
+                        statusMessage =
+                            'Thank you, $userName! You have successfully signed.';
+                      }
+
+                      // Terms validation
+                      if (StatusTerms == false) {
+                        statusAgreement =
+                            'Please agree to the terms and conditions';
+                      } else {
+                        statusAgreement = 'Thank you for signing';
+                      }
+
+                      // Age validation
+                      if (tecAge.text.isNotEmpty) {
+                        int valueAge = int.parse(tecAge.text);
+                        if (valueAge <= 10) {
+                          statusMovies = 'Recommend Cartoon Movies';
+                        } else {
+                          statusMovies = 'Recommend Horror Movies';
+                        }
+                      } else {
+                        statusMovies = 'Please enter a valid age';
+                      }
+
+                      // State validation
+                      if (selectedState == MyStates.Tamilnadu) {
+                        statusState = 'Tamil Movies';
+                      } else if (selectedState == MyStates.Kerala) {
+                        statusState = 'Malayalam Movies';
+                      } else if (selectedState == MyStates.Karnataka) {
+                        statusState = 'Kannada Movies';
+                      } else if (selectedState == MyStates.Telungana) {
+                        statusState = 'Telugu Movies';
+                      } else {
+                        statusState = 'Please select a state';
+                      }
+                    });
+                  },
+                  child: const Text(
+                    'Signup',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.green,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // Output Texts
+                Text(statusAgreement),
+                Text(statusMovies),
+                Text(statusState),
+                Text(statusMessage),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
