@@ -1,0 +1,88 @@
+void main() {
+  // list
+  //listOperations();  // ✅ call the list function
+
+  // set
+ // setOperations();   // ✅ call the set function
+ //map
+ mapOperations();    // ✅ call the map function
+
+}
+void mapOperations(){
+  //inga yen nama dynamic use pantrom na string,int maari maari kuduka mudiyathul soo, 
+ //Map<key,Value>
+  Map<String,dynamic> person = {
+    'name':'Muthuselvi',
+    'Age':21,
+    'phone no':234567890,
+    'weight':85.5,
+  };
+  print(person);
+  //accessing the values
+  print(person['phone']);
+  person['height'] = 179;
+  print(person);
+  //find a key value
+  print(person.containsKey('phone no'));
+  print(person.containsValue('Muthuselvi'));
+}
+
+void setOperations() {
+  //create setoperations
+  Set<int> groupOne = {3,6,9,4};
+  print(groupOne);
+  Set<int> groupTwo = {2,4,6,8};
+  print(groupTwo);
+  //using intersection
+  Set<int>CommonNo
+  = groupOne.intersection(groupTwo);
+  print(CommonNo);
+  //using union
+  Set<int>unionNo
+  = groupOne.union(groupTwo);
+  print(unionNo);
+  //using difference
+  Set<int>differenceNo
+  = groupOne.difference(groupTwo);
+  print(differenceNo);
+  groupOne.add(8);
+  print(groupOne);
+  groupTwo.remove(8);
+  print(groupOne);
+}
+
+void listOperations() {
+  // 1. Creating a List
+  List<String> fruits = ['Apple', 'Banana'];
+  print(fruits);
+
+  List<String> contacts = [];
+  contacts.add('Parthiban');
+  contacts.add('Ragul');
+  contacts.add('Rocky');
+  print(contacts);
+
+  // 2. Index - Accessing Items
+  String myName = contacts[2];
+  print(myName);
+
+  // 3. Updating a list item - Replacing
+  contacts[1] = 'Ramya';
+  print(contacts);
+
+  // 4. Remove an Item
+  contacts.remove('Parthiban');
+  print(contacts);
+
+  contacts.removeAt(1);
+  print(contacts);
+
+  // 5. Find Items
+  List<String> fruits1 = ['Apple', 'Mango', 'Papaya'];
+
+  if (fruits1.contains('Orange')) {
+    print('Orange is available');
+  } else {
+    print('Orange is not available');
+  }
+}
