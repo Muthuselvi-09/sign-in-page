@@ -1,0 +1,309 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const EventApp());
+}
+
+// Root App (StatelessWidget)
+class EventApp extends StatelessWidget {
+  const EventApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Event Management',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+        scaffoldBackgroundColor: const Color(0xFFF8F9FA),
+      ),
+      home: const EventHomePage(),
+    );
+  }
+}
+
+// Stateful Home Page
+class EventHomePage extends StatefulWidget {
+  const EventHomePage({super.key});
+
+  @override
+  State<EventHomePage> createState() => _EventHomePageState();
+}
+
+class _EventHomePageState extends State<EventHomePage> {
+  int _selectedIndex = 0;
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  final List<Map<String, String>> events = [
+    {
+      "date": "Dec 25, 2024 • 7:00 PM",
+      "title": "Tech Conference 2024",
+      "location": "Convention Center, Chennai",
+      "description":
+          "Join industry leaders for the biggest tech conference of the year. Network, learn, and discover the latest innovations.",
+      "tags": "Technology, Networking, Innovation",
+      "attendees": "245"
+    },
+    {
+      "date": "Dec 28, 2024 • 6:30 PM",
+      "title": "Music Festival",
+      "location": "Marina Beach, Chennai",
+      "description":
+          "Experience the best of local and international artists in this amazing outdoor music festival by the beach.",
+      "tags": "Music, Festival, Outdoor",
+      "attendees": "892"
+    },
+    {
+      "date": "Jan 2, 2025 • 10:00 AM",
+      "title": "Startup Meetup",
+      "location": "Co-working Space, T.Nagar",
+      "description":
+          "Connect with fellow entrepreneurs, share ideas, and build the future together in this monthly startup gathering.",
+      "tags": "Startup, Business, Networking",
+      "attendees": "67"
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Event Management"),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFFFF6B6B), Color(0xFF4ECDC4), Color(0xFF45B7D1)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Search Bar
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: const Row(
+                children: [
+                  Icon(Icons.search, color: Colors.grey),
+                  SizedBox(width: 10),
+                  Text(
+                    "Search events, venues, organizers...",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            // Stats Cards
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildStatCard("24", "Events Today", Colors.indigo),
+                _buildStatCard("156", "Attendees", Colors.teal),
+              ],
+            ),
+
+            const SizedBox(height: 30),
+
+            // Upcoming Events Section
+            const Text(
+              "🎉 Upcoming Events",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+
+            const SizedBox(height: 16),
+
+            // Event Cards
+            for (var event in events) _buildEventCard(event),
+          ],
+        ),
+      ),
+
+      // Floating Action Button
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color(0xFFFF6B6B),
+        onPressed: () {},
+        child: const Icon(Icons.add),
+      ),
+
+      // Bottom Navigation
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onTabTapped,
+        selectedItemColor: const Color(0xFFFF6B6B),
+        unselectedItemColor: Colors.grey,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Explore"),
+          BottomNavigationBarItem(icon: Icon(Icons.confirmation_number), label: "Tickets"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatCard(String number, String label, Color color) {
+    return Expanded(
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 5),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [color.withOpacity(0.8), color.withOpacity(0.6)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: color.withOpacity(0.3),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Text(
+              number,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              label,
+              style: const TextStyle(color: Colors.white70, fontSize: 12),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEventCard(Map<String, String> event) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: const [
+          BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0, 6)),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFFFF6B6B), Color(0xFFFF8E53)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            ),
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.white24,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    event["date"]!,
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  event["title"]!,
+                  style: const TextStyle(
+                      color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  event["location"]!,
+                  style: const TextStyle(color: Colors.white70, fontSize: 14),
+                ),
+              ],
+            ),
+          ),
+
+          // Content
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  event["description"]!,
+                  style: const TextStyle(color: Colors.black87, height: 1.5),
+                ),
+                const SizedBox(height: 10),
+                Wrap(
+                  spacing: 8,
+                  children: event["tags"]!
+                      .split(',')
+                      .map((tag) => Chip(
+                            label: Text(tag.trim()),
+                            backgroundColor: Colors.blue.shade50,
+                          ))
+                      .toList(),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("👥 ${event["attendees"]} attending",
+                        style: const TextStyle(color: Colors.grey)),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF4ECDC4),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: const Text("Join Event"),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
